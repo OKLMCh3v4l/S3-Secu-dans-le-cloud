@@ -18,9 +18,9 @@ resource "aws_internet_gateway" "gw" {
 }
 
 resource "aws_subnet" "public" {
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_cidr
-  availability_zone       = var.az
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.public_subnet_cidr
+  availability_zone = var.az
   tags = {
     Name = var.subnet_name
   }
@@ -183,9 +183,4 @@ resource "aws_sns_topic_subscription" "alarm_email" {
   topic_arn = aws_sns_topic.alarm.arn
   protocol  = "email"
   endpoint  = "ndemary@myges.fr"
-}
-
-output "ec2_public_ip" {
-  value       = aws_instance.web.public_ip
-  description = "Public IP of the EC2 instance."
 }
