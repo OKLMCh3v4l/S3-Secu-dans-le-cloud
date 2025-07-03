@@ -20,7 +20,6 @@ resource "aws_internet_gateway" "gw" {
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidr
-  map_public_ip_on_launch = true
   availability_zone       = var.az
   tags = {
     Name = var.subnet_name
@@ -64,41 +63,10 @@ resource "aws_security_group" "ec2_sg" {
   }
 }
 
-resource "aws_iam_role" "vpc_flow_log_role" {
-  name = var.flow_log_role_name
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [{
-      Effect    = "Allow",
-      Principal = { Service = "vpc-flow-logs.amazonaws.com" },
-      Action    = "sts:AssumeRole"
-    }]
-  })
-}
-
-resource "aws_iam_role_policy" "vpc_flow_log_policy" {
-  name = var.flow_log_policy_name
-  role = aws_iam_role.vpc_flow_log_role.id
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [{
-      Effect = "Allow",
-      Action = [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents",
-        "logs:DescribeLogGroups",
-        "logs:DescribeLogStreams"
-      ],
-      Resource = "*"
-    }]
-  })
-}
-
 resource "aws_flow_log" "vpc" {
+  log_destination          = aws_cloudwatch_log_group.vpc_logs.arn
   log_destination_type     = "cloud-watch-logs"
-  log_group_name           = aws_cloudwatch_log_group.vpc_logs.name
-  iam_role_arn             = aws_iam_role.vpc_flow_log_role.arn
+  iam_role_arn             = data.aws_iam_role.vpc_flow_log_role.arn
   vpc_id                   = aws_vpc.main.id
   traffic_type             = "ALL"
   max_aggregation_interval = 60
@@ -209,6 +177,12 @@ resource "aws_cloudwatch_metric_alarm" "ping_deny" {
   threshold           = 1
   alarm_description   = "Alarm when ICMP traffic is denied."
   alarm_actions       = [aws_sns_topic.alarm.arn]
+}
+
+resource "aws_sns_topic_subscription" "alarm_email" {
+  topic_arn = aws_sns_topic.alarm.arn
+  protocol  = "email"
+  endpoint  = "ndemary@myges.fr"
 }
 
 output "ec2_public_ip" {

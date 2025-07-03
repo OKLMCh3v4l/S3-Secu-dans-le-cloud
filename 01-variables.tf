@@ -77,7 +77,7 @@ variable "instance_type" {
 variable "iam_instance_profile" {
   description = "IAM instance profile for EC2 (for SSM)"
   type        = string
-  default     = "SSM_EC2_Role"
+  default     = "esgi_EC2_Role"
 }
 variable "ec2_name" {
   description = "Name of the EC2 instance"
