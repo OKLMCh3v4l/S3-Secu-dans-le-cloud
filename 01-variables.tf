@@ -7,27 +7,27 @@ variable "aws_region" {
 variable "log_group_name" {
   description = "Name of the CloudWatch Log Group for VPC Flow Logs"
   type        = string
-  default     = "Group4VpcLogs"
+  default     = "Group3VpcLogs"
 }
 variable "vpc_name" {
   description = "Name of the VPC"
   type        = string
-  default     = "Group4VPC"
+  default     = "Group3VPC"
 }
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
   type        = string
-  default     = "10.4.0.0/16"
+  default     = "10.3.0.0/16"
 }
 variable "igw_name" {
   description = "Name of the Internet Gateway"
   type        = string
-  default     = "Group4InternetGateway"
+  default     = "Group3InternetGateway"
 }
 variable "public_subnet_cidr" {
   description = "CIDR block for the public subnet"
   type        = string
-  default     = "10.4.1.0/24"
+  default     = "10.3.1.0/24"
 }
 variable "az" {
   description = "Availability zone for the subnet"
@@ -37,17 +37,17 @@ variable "az" {
 variable "subnet_name" {
   description = "Name of the public subnet"
   type        = string
-  default     = "Group4SubPub"
+  default     = "Group3SubPub"
 }
 variable "route_table_name" {
   description = "Name of the route table"
   type        = string
-  default     = "Group4PublicRouteTable"
+  default     = "Group3PublicRouteTable"
 }
 variable "sg_name" {
   description = "Name of the security group for EC2"
   type        = string
-  default     = "Group4EC2server_SG"
+  default     = "Group3EC2server_SG"
 }
 variable "flow_log_role_name" {
   description = "Name of the IAM role for VPC Flow Logs"
@@ -62,12 +62,12 @@ variable "flow_log_policy_name" {
 variable "flow_log_name" {
   description = "Name of the VPC Flow Log"
   type        = string
-  default     = "Group4VPCFlowLog"
+  default     = "Group3VPCFlowLog"
 }
 variable "nacl_name" {
   description = "Name of the Network ACL"
   type        = string
-  default     = "Group4PublicACL"
+  default     = "Group3PublicACL"
 }
 variable "instance_type" {
   description = "EC2 instance type"
@@ -82,7 +82,7 @@ variable "iam_instance_profile" {
 variable "ec2_name" {
   description = "Name of the EC2 instance"
   type        = string
-  default     = "Group4EC2"
+  default     = "Group3EC2"
 }
 variable "ami_name_filter" {
   description = "AMI name filter for Amazon Linux 2023"
@@ -97,12 +97,12 @@ variable "ami_architecture" {
 variable "sns_topic_name" {
   description = "Name of the SNS topic for CloudWatch alarm"
   type        = string
-  default     = "Group4Alarms-Ping-Deny"
+  default     = "Group3Alarms-Ping-Deny"
 }
 variable "metric_filter_name" {
   description = "Name of the CloudWatch metric filter"
   type        = string
-  default     = "Group4Ping-Deny-Metric"
+  default     = "Group3Ping-Deny-Metric"
 }
 variable "metric_filter_pattern" {
   description = "Pattern for the CloudWatch metric filter"
@@ -117,10 +117,10 @@ variable "metric_name" {
 variable "metric_namespace" {
   description = "Namespace for the CloudWatch metric"
   type        = string
-  default     = "Group4Ping-Deny-Metric"
+  default     = "Group3Ping-Deny-Metric"
 }
 variable "alarm_name" {
   description = "Name of the CloudWatch alarm"
   type        = string
-  default     = "Group4Alarms-Ping-Deny"
+  default     = "Group3Alarms-Ping-Deny"
 }
